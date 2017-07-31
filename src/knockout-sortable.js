@@ -172,7 +172,7 @@
                 var dragItem;
                 var originalReceive = sortable.options.receive;
 
-                $element.sortable(ko.utils.extend(sortable.options, {
+                $element.multisortable(ko.utils.extend(sortable.options, {
                     start: function(event, ui) {
                         //track original index
                         var el = ui.item[0];
@@ -248,7 +248,7 @@
 
                             //call cancel on the correct list, so KO can take care of DOM manipulation
                             if (sourceParent) {
-                                $(sourceParent === targetParent ? this : ui.sender || this).sortable("cancel");
+                                $(sourceParent === targetParent ? this : ui.sender || this).multisortable("cancel");
                             }
                             //for a draggable item just remove the element
                             else {
@@ -350,7 +350,7 @@
                 if (sortable.isEnabled !== undefined) {
                     ko.computed({
                         read: function() {
-                            $element.sortable(unwrap(sortable.isEnabled) ? "enable" : "disable");
+                            $element.multisortable(unwrap(sortable.isEnabled) ? "enable" : "disable");
                         },
                         disposeWhenNodeIsRemoved: element
                     });
@@ -361,7 +361,7 @@
             ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
                 //only call destroy if sortable has been created
                 if ($element.data("ui-sortable") || $element.data("sortable")) {
-                    $element.sortable("destroy");
+                    $element.multisortable("destroy");
                 }
 
                 ko.utils.toggleDomNodeCssClass(element, sortable.connectClass, false);
